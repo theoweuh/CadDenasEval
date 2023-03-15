@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande{% endblock %}
+
+{% block body %}
+    <h1>Demande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDemande</th>
+                <td>{{ demande.dateDemande ? demande.dateDemande|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateConfirmation</th>
+                <td>{{ demande.dateConfirmation ? demande.dateConfirmation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TypeEchange</th>
+                <td>{{ demande.typeEchange }}</td>
+            </tr>
+            <tr>
+                <th>FraisTransport</th>
+                <td>{{ demande.fraisTransport }}</td>
+            </tr>
+            <tr>
+                <th>ModeTransport</th>
+                <td>{{ demande.modeTransport }}</td>
+            </tr>
+            <tr>
+                <th>NumSerieAeronef</th>
+                <td>{{ demande.numSerieAeronef }}</td>
+            </tr>
+            <tr>
+                <th>ModeleAeronef</th>
+                <td>{{ demande.modeleAeronef }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_index') }}">back to list</a>
+
+    <a href="{{ path('app_demande_edit', {'id': demande.id}) }}">edit</a>
+
+    {{ include('demande/_delete_form.html.twig') }}
+{% endblock %}

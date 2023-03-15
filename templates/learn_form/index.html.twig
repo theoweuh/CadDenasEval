@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test de formulaire!{% endblock %}
+
+{% block body %}
+<h1>J'apprends les formulaires avec Symfony</h1>
+
+{{ form_start(myForm) }}
+{# <div class="row m-3">
+    {{ form_row(myForm.nom) }}
+</div>
+<div class="row m-3">
+    {{ form_row(myForm.liste_choix) }}
+</div>
+<div class="row m-3">
+    {{ form_widget(myForm.valide) }}
+</div>
+#}
+<div class="row m-3">
+    <div class="col-lg-2 col-12">
+        {{ form_label(myForm.nom) }}
+    </div>
+    <div class="col-lg-10 col-12">
+        {{ form_widget(myForm.nom) }}
+    </div>
+    {{ form_errors(myForm.nom) }}
+</div>
+<div class="row m-3">
+    <div class="col-lg-2 col-12">
+        {{ form_label(myForm.liste_choix) }}
+    </div>
+    <div class="col-lg-10 col-12">
+        {{ form_widget(myForm.liste_choix) }}
+    </div>
+    {{ form_errors(myForm.liste_choix) }}
+</div>
+<div class="row m-3">
+    <div class="col-lg-12 col-12">
+        {{ form_widget(myForm.valide) }}
+    </div>
+</div>
+{{ form_end(myForm) }}
+
+{% endblock %}
