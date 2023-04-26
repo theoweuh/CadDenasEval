@@ -9,32 +9,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/demande')]
+#[IsGranted('ROLE_USER')]
 class DemandeController extends AbstractController
 {
-    #[Route('/', name: 'app_demande_index', methods: ['GET'])]
-    public function index(DemandeRepository $demandeRepository): Response
-    {
-        return $this->render('demande/index.html.twig', [
-            'demandes' => $demandeRepository->findAll(),
-        ]);
-    }
-
     #[Route('/new', name: 'app_demande_new', methods: ['GET', 'POST'])]
     public function new(Request $request, DemandeRepository $demandeRepository): Response
     {
         $demande = new Demande();
+        $demande->setUser($this->getUser());
         $form = $this->createForm(DemandeType::class, $demande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeRepository->save($demande, true);
 
-            return $this->redirectToRoute('app_demande_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_mes_demandes', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('demande/new.html.twig', [
+        return $this->render('demande/new.html.twig', [
             'demande' => $demande,
             'form' => $form,
         ]);
@@ -57,10 +52,10 @@ class DemandeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeRepository->save($demande, true);
 
-            return $this->redirectToRoute('app_demande_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_mes_demandes', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('demande/edit.html.twig', [
+        return $this->render('demande/edit.html.twig', [
             'demande' => $demande,
             'form' => $form,
         ]);
@@ -73,6 +68,6 @@ class DemandeController extends AbstractController
             $demandeRepository->remove($demande, true);
         }
 
-        return $this->redirectToRoute('app_demande_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_mes_demandes', [], Response::HTTP_SEE_OTHER);
     }
 }

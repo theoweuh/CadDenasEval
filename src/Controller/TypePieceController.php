@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/type/piece')]
+#[IsGranted('ROLE_USER')]
 class TypePieceController extends AbstractController
 {
     #[Route('/', name: 'app_type_piece_index', methods: ['GET'])]

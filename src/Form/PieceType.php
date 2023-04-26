@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Piece;
+use App\Entity\TypePiece;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,11 +16,16 @@ class PieceType extends AbstractType
     {
         $builder
             ->add('numSerie')
-            ->add('dateFabrication')
+            ->add('dateFabrication', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('prix')
             ->add('etat')
             ->add('siteStockage')
-            ->add('typePiece')
+            ->add('typePiece', EntityType::class, [
+                'class' => TypePiece::class,
+                'choice_label' => 'libelle',
+            ])
         ;
     }
 

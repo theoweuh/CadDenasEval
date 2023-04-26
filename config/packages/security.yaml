@@ -19,10 +19,16 @@ security:
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
-
+            form_login:
+                # "app_login" is the name of the route created previously
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+                default_target_path: app_mes_demandes
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-
+            logout:
+                path: app_logout
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
