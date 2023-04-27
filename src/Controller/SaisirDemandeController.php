@@ -17,6 +17,13 @@ class SaisirDemandeController extends AbstractController
     #[Route('/saisirdemande', name: 'app_saisir_demande')]
     public function index(Request $request, ManagerRegistry $doctrine): Response
     {
+        $user = $doctrine->getRepository(User::class)->find($this->getUser());
+
+        if ($user->isEstBloque()) {
+            $this->addFlash('error', 'Votre compte est bloqué. Vous ne pouvez pas effectuer de demande.');
+            return $this->redirectToRoute('app_mes_demandes');
+        }
+
         $demande = new Demande();
         $user = $doctrine->getRepository(User::class)->find($this->getUser());
         $demande->setUser($user);

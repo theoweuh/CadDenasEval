@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Demande;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,6 +30,15 @@ class DemandeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findNonConfirmeesByUser(User $user): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.user = :user')
+            ->andWhere('d.dateConfirmation IS NULL')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function remove(Demande $entity, bool $flush = false): void
     {
@@ -37,7 +47,9 @@ class DemandeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
     }
+
 
 //    /**
 //     * @return Demande[] Returns an array of Demande objects

@@ -22,9 +22,14 @@ class PieceType extends AbstractType
             ->add('prix')
             ->add('etat')
             ->add('siteStockage')
-            ->add('typePiece', EntityType::class, [
-                'class' => TypePiece::class,
-                'choice_label' => 'libelle',
+            ->add('etat', ChoiceType::class, [
+                'choices' => [
+                    'Neuf' => 'Neuf',
+                    'Occasion' => 'Occasion',
+                    'Neuf-réparé' => 'Neuf-réparé',
+                ],
+                'placeholder' => 'Choisir un état',
+                'required' => true,
             ])
         ;
     }

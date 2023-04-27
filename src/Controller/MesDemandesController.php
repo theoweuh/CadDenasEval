@@ -16,6 +16,7 @@ class MesDemandesController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function index(ManagerRegistry $doctrine): Response
     {
+
         $mesDemandes = $doctrine->getRepository(Demande::class)->findBy(['user' => $this->getUser()]);
 
         return $this->render('mes_demandes/index.html.twig', [

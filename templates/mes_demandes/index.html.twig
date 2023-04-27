@@ -18,6 +18,7 @@
             <th>ModeleAeronef</th>
             <th>actions</th>
         </tr>
+
         </thead>
         <tbody>
         {% for demande in demandes %}
@@ -31,9 +32,11 @@
                 <td>{{ demande.numSerieAeronef }}</td>
                 <td>{{ demande.modeleAeronef }}</td>
                 <td>
+
                     <a href="{{ path('app_demande_show', {'id': demande.id}) }}">show</a>
                     <a href="{{ path('app_demande_edit', {'id': demande.id}) }}">edit</a>
                 </td>
+
             </tr>
         {% else %}
             <tr>
@@ -44,4 +47,9 @@
     </table>
 
     <a href="{{ path('app_saisir_demande') }}">Create new</a>
+    <tr>
+        {% if app.session.flashbag.has('error') %}
+            <h1>Erreur : Vous n'etes pas autorisé à pouvoir créer une autre demande.</h1>
+        {% endif %}
+    </tr>
 {% endblock %}

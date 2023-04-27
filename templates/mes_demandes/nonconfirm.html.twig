@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demandes non confirmées{% endblock %}
+
+{% block body %}
+    <h1>Demandes non confirmées</h1>
+
+    {% if demandes is empty %}
+        <p>Aucune demande non confirmée trouvée.</p>
+    {% else %}
+        <ul>
+            {% for demande in demandes %}
+                <li>{{ user.nom }} - {{ dateConfirmation|date('d/m/Y')  }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
